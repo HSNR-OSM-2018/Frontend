@@ -1148,15 +1148,24 @@ function drawZiel() {
 
 }
 
+function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+}
+
 var styleLineFunction = function(feature) {
     var colortouse = '';
     var switcher = anzahlrouten % 10;
     switch (switcher) {
         case 0:
-            colortouse = '#01DF01';
+            colortouse = '#0080FF';
             break;
         case 1:
-            colortouse = '#0080FF';
+             colortouse = '#58FAF4';
             break;
         case 2:
             colortouse = '#FFBF00';
@@ -1177,7 +1186,7 @@ var styleLineFunction = function(feature) {
             colortouse = '#848484';
             break;
         case 8:
-            colortouse = '#58FAF4';
+           colortouse = '#01DF01';
             break;
         case 9:
             colortouse = '#FFFF00';
@@ -1188,13 +1197,14 @@ var styleLineFunction = function(feature) {
         default:
             colortouse = '#01DF01';
     }
+    colortouse = 'rgba('+hexToRgb(colortouse).r+','+hexToRgb(colortouse).g+','+hexToRgb(colortouse).b+',0.5)';
     var geometry = feature.getGeometry();
     var styles = [
         // linestring
         new ol.style.Style({
             stroke: new ol.style.Stroke({
                 color: colortouse,
-                width: 2
+                width: 5
             })
         })
     ];
